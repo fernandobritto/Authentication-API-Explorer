@@ -1,2 +1,2 @@
-# Opy-Showroom-API
+# Authentication API Explorer
 API para o Opy-Showroom 
