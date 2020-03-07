@@ -1,2 +1,2 @@
 # Authentication API Explorer
-API para o Opy-Showroom 
+API em NodeJS
