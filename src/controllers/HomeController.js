@@ -1,6 +1,14 @@
+import User from '../models/User'
 
 class HomeController {
-  index(req, res){
+  async index(req, res){
+    const newUser = await User.create({
+      name: 'Gabriel',
+      lastname: 'Pinheiro',
+      email: 'titinhodocell@gmail.com',
+      age: 18,
+
+    })
     res.json({
       explorerApi: true
     })
