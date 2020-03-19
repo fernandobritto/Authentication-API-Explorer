@@ -28,7 +28,7 @@ export default class User extends Model {
         },
       },
 
-      password_hach: {
+      password_hash: {
         type: Sequelize.STRING,
         defaultValue: '',
       },
@@ -47,7 +47,7 @@ export default class User extends Model {
     }, {sequelize})
 
     this.addHook('beforeSave', async user => {
-      user.password_hach = await bcryptjs.hash(user.password, 8)
+      user.password_hash = await bcryptjs.hash(user.password, 8)
     })
 
     return this

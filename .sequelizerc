@@ -1,5 +1,4 @@
 const { resolve } = require('path')
-//const path = require('path')
 
 module.exports = {
   config: resolve(__dirname, 'vendor', 'config', 'database.js'),
