@@ -30,30 +30,30 @@ class UserController {
    }
  }
 
-//  async update(req, res){
-//   try{
+ async update(req, res){
+  try{
 
-//     if(!req.params.id){
-//       return res.status(400).json({
-//         errors:['ID não enviado']
-//       })
-//     }
+    if(!req.params.id){
+      return res.status(400).json({
+        errors:['ID não enviado']
+      })
+    }
 
-//     const user = await User.findByPk(req.params.id)
+    const user = await User.findByPk(req.params.id)
 
-//     if(!user){
-//       return res.status(400).json({
-//         errors:['Usuário não existe!']
-//       })
-//     }
+    if(!user){
+      return res.status(400).json({
+        errors:['Usuário não existe!']
+      })
+    }
 
-//     const newInfos = await user.update(req.body)
-//     return res.json(newInfos)
+    const newInfos = await user.update(req.body)
+    return res.json(newInfos)
 
-//   } catch(e){
-//     return res.json(null)
-//   }
-// }
+  } catch(e){
+    return res.json(null)
+  }
+}
 
 
 }
