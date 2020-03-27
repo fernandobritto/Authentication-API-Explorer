@@ -1,6 +1,16 @@
 import User from '../models/User'
 
 class UserController {
+  async start(req, res){
+      const newUsers = await User.create({
+        name: 'Fernando',
+        email: 'me@fernandobritto.com.br',
+        password: '1q2w3e4r',
+      })
+      return res.json(newUsers)
+  }
+
+
   async index(req, res){
     try{
       const users = await User.findAll()

@@ -4,6 +4,7 @@ dotenv.config()
 import './vendor/database'
 
 import express from 'express'
+import userRoutes from './vendor/routes/userRoutes'
 
 
 class App {
@@ -19,7 +20,7 @@ class App {
   }
 
   routes(){
-    this.app.use('/', userRoutes)
+    this.app.use('/users', userRoutes)
   }
 }
 
