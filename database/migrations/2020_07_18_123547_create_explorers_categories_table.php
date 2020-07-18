@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExplorerPhotosTable extends Migration
+class CreateExplorersCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateExplorerPhotosTable extends Migration
      */
     public function up()
     {
-        Schema::create('explorer_photos', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('explorers_categories', function (Blueprint $table) {
             $table->unsignedBigInteger('explorer_id');
-            $table->string('photo');
-            $table->boolean('is_thumb');
-            $table->timestamps();
+            $table->unsignedBigInteger('category_id');
 
             $table->foreign('explorer_id')->references('id')->on('explorers');
+            $table->foreign('category_id')->references('id')->on('categories');
+
+
         });
     }
 
@@ -31,6 +31,6 @@ class CreateExplorerPhotosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('explorer_photos');
+        Schema::dropIfExists('explorers_categories');
     }
 }

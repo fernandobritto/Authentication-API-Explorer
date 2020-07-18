@@ -15,6 +15,7 @@ class CreateExplorersTable extends Migration
     {
         Schema::create('explorers', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->string('title');
             $table->string('description');
             $table->text('content');
@@ -25,6 +26,10 @@ class CreateExplorersTable extends Migration
             $table->integer('total_property_area');
             $table->string('slug');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+
+
         });
     }
 
