@@ -72,7 +72,21 @@ class ExplorerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+
+        try{
+
+            $explorer = $this->explorer->findOrFail($id);
+            $explorer->update($data);
+
+            return response()->json([
+                'data' => [
+                    'msg' => 'Update -- Success!!!'
+                ]
+            ], 200);
+        }catch (\Exception $e){
+            return response()->json(['error' => $e->getMessage()]);
+        }
     }
 
     /**
