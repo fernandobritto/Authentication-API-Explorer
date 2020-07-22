@@ -19,6 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->namespace('Api')->group(function(){
     Route::prefix('explorers')->name('explorers.')->group(function(){
-        Route::get('/', 'ExplorerController@index')->name('index');
+        Route::resource('/', 'ExplorerController');
     });
 });

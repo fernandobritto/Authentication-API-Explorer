@@ -35,7 +35,21 @@ class ExplorerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        try{
+
+            $explorer = $this->explorer->create($data); //Mass Asignment
+
+            return response()->json([
+                'data' => [
+                    'msg' => 'Success!!!'
+                ]
+            ], 200);
+        }catch (\Exception $e){
+            return response()->json(['error' => $e->getMessage()]);
+        }
+
     }
 
     /**
