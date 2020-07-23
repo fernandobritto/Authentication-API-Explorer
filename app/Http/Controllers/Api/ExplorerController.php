@@ -60,7 +60,20 @@ class ExplorerController extends Controller
      */
     public function show($id)
     {
-        //
+
+        try{
+
+            $explorer = $this->explorer->findOrFail($id);
+
+            return response()->json([
+                'data' => [
+                    'msg' => 'Success!!!',
+                    'data' => $explorer
+                ]
+            ], 200);
+        }catch (\Exception $e){
+            return response()->json(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -97,6 +110,18 @@ class ExplorerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+
+            $explorer = $this->explorer->findOrFail($id);
+            $explorer->delete();
+
+            return response()->json([
+                'data' => [
+                    'msg' => 'Delete -- Success!!!'
+                ]
+            ], 200);
+        }catch (\Exception $e){
+            return response()->json(['error' => $e->getMessage()]);
+        }
     }
 }
