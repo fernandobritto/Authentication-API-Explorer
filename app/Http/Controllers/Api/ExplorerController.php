@@ -13,7 +13,6 @@ class ExplorerController extends Controller
     public function __construct(Explorer $explorer)
     {
         $this->explorer = $explorer;
-
     }
 
     /**
@@ -38,7 +37,6 @@ class ExplorerController extends Controller
         $data = $request->all();
 
         try{
-
             $explorer = $this->explorer->create($data); //Mass Asignment
 
             return response()->json([
@@ -46,6 +44,7 @@ class ExplorerController extends Controller
                     'msg' => 'Success!!!'
                 ]
             ], 200);
+
         }catch (\Exception $e){
             return response()->json(['error' => $e->getMessage()]);
         }
@@ -60,17 +59,13 @@ class ExplorerController extends Controller
      */
     public function show($id)
     {
-
         try{
-
             $explorer = $this->explorer->findOrFail($id);
 
             return response()->json([
-                'data' => [
-                    'msg' => 'Success!!!',
-                    'data' => $explorer
-                ]
+                'data' =>  $explorer
             ], 200);
+
         }catch (\Exception $e){
             return response()->json(['error' => $e->getMessage()]);
         }
@@ -88,7 +83,6 @@ class ExplorerController extends Controller
         $data = $request->all();
 
         try{
-
             $explorer = $this->explorer->findOrFail($id);
             $explorer->update($data);
 
@@ -97,6 +91,7 @@ class ExplorerController extends Controller
                     'msg' => 'Update -- Success!!!'
                 ]
             ], 200);
+
         }catch (\Exception $e){
             return response()->json(['error' => $e->getMessage()]);
         }
@@ -111,7 +106,6 @@ class ExplorerController extends Controller
     public function destroy($id)
     {
         try{
-
             $explorer = $this->explorer->findOrFail($id);
             $explorer->delete();
 
@@ -120,6 +114,7 @@ class ExplorerController extends Controller
                     'msg' => 'Delete -- Success!!!'
                 ]
             ], 200);
+
         }catch (\Exception $e){
             return response()->json(['error' => $e->getMessage()]);
         }
