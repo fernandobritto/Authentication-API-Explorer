@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\ExplorerRequest;
 use App\Explorer;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+
 
 class ExplorerController extends Controller
 {
@@ -15,29 +16,21 @@ class ExplorerController extends Controller
         $this->explorer = $explorer;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    //   INDEX   //
     public function index()
     {
         $explorer = $this->explorer->paginate('10');
         return response()->json($explorer, 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    //   STORE   //
+    public function store(ExplorerRequest $request)
     {
         $data = $request->all();
 
         try{
-            $explorer = $this->explorer->create($data); //Mass Asignment
+            $explorer = $this->explorer->create($data);
 
             return response()->json([
                 'data' => [
@@ -46,17 +39,13 @@ class ExplorerController extends Controller
             ], 200);
 
         }catch (\Exception $e){
-            return response()->json(['error' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()], 401);
         }
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+    //   SHOW   //
     public function show($id)
     {
         try{
@@ -71,14 +60,9 @@ class ExplorerController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+
+    //   UPDATE   //
+    public function update(ExplorerRequest $request, $id)
     {
         $data = $request->all();
 
@@ -97,12 +81,8 @@ class ExplorerController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+    //   DESTROY   //
     public function destroy($id)
     {
         try{
