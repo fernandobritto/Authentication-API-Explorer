@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Api\ApiMessages;
 use App\Http\Requests\ExplorerRequest;
 use App\Explorer;
 use App\Http\Controllers\Controller;
@@ -39,7 +40,8 @@ class ExplorerController extends Controller
             ], 200);
 
         }catch (\Exception $e){
-            return response()->json(['error' => $e->getMessage()], 401);
+            $message = new ApiMessages($e->getMessage());
+            return response()->json($message->getMessage(), 401);
         }
 
     }
@@ -56,7 +58,8 @@ class ExplorerController extends Controller
             ], 200);
 
         }catch (\Exception $e){
-            return response()->json(['error' => $e->getMessage()]);
+            $message = new ApiMessages($e->getMessage());
+            return response()->json($message->getMessage(), 401);
         }
     }
 
@@ -77,7 +80,8 @@ class ExplorerController extends Controller
             ], 200);
 
         }catch (\Exception $e){
-            return response()->json(['error' => $e->getMessage()]);
+            $message = new ApiMessages($e->getMessage());
+            return response()->json($message->getMessage(), 401);
         }
     }
 
@@ -96,7 +100,8 @@ class ExplorerController extends Controller
             ], 200);
 
         }catch (\Exception $e){
-            return response()->json(['error' => $e->getMessage()]);
+            $message = new ApiMessages($e->getMessage());
+            return response()->json($message->getMessage(), 401);
         }
     }
 }
