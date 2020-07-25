@@ -21,4 +21,8 @@ Route::prefix('v1')->namespace('Api')->group(function(){
     Route::name('explorers.')->group(function(){
         Route::resource('explorers', 'ExplorerController');
     });
+
+    Route::name('users.')->group(function(){
+        Route::resource('users', 'UserController');
+    });
 });
