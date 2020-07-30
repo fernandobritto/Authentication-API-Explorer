@@ -29,9 +29,20 @@ class ExplorerController extends Controller
     public function store(ExplorerRequest $request)
     {
         $data = $request->all();
+        $images = $request->file('images');
 
         try{
             $explorer = $this->explorer->create($data);
+
+            if(isset($data['categories']) && count($data['categories'])){
+                $explorer->categories()->sync($data['categories']);
+            }
+
+            if($images){
+                foreach ($images as $image){
+                    $path = $image->store('images', 'public');
+                }
+            }
 
             return response()->json([
                 'data' => [
@@ -72,6 +83,10 @@ class ExplorerController extends Controller
         try{
             $explorer = $this->explorer->findOrFail($id);
             $explorer->update($data);
+
+            if(isset($data['categories']) && count($data['categories'])){
+                $explorer->categories()->sync($data['categories']);
+            }
 
             return response()->json([
                 'data' => [

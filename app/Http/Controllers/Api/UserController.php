@@ -6,6 +6,7 @@ use App\Api\ApiMessages;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\User;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -43,9 +44,18 @@ class UserController extends Controller
             return response()->json($message->getMessage(), 402);
         }
 
+        Validator::make($data, [
+            'phone' => 'require',
+            'mobile_phone' => 'require'
+        ])->validate();
+
         try{
             $data['password'] = bcrypt($data['password']);
             $user = $this->explorer->create($data);
+            $user->profile()->create([
+                'phone' => $data['phone'],
+                'mobile_phone' => $data['mobile_phone']
+            ]);
 
             return response()->json([
                 'data' => [
@@ -68,7 +78,8 @@ class UserController extends Controller
     public function show($id)
     {
         try{
-            $user = $this->user->findOrFail($id);
+            $user = $this->user->with('profile')->findOrFail($id);
+            $user->profile->social_networks = unserialize($user->profile->social_networks);
 
             return response()->json([
                 'data' =>  $user
@@ -97,9 +108,17 @@ class UserController extends Controller
             unset($data['password']);
         }
 
+        Validator::make($data, [
+            'profile.phone' => 'require',
+            'profile.mobile_phone' => 'require'
+        ])->validate();
+
         try{
+            $profile = $data['profile'];
+            $profile['social_networks'] = serialize($profile['social_networks']);
             $user = $this->user->findOrFail($id);
             $user->update($data);
+            $user->profile()->update($profile);
 
             return response()->json([
                 'data' => [

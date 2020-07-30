@@ -17,4 +17,14 @@ class Explorer extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'explorers_categories');
+    }
+
+    public function photos()
+    {
+        return $this->hasMany(ExplorerPhoto::class);
+    }
 }
