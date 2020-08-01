@@ -39,9 +39,13 @@ class ExplorerController extends Controller
             }
 
             if($images){
+                $imagesUploaded = [];
                 foreach ($images as $image){
                     $path = $image->store('images', 'public');
+                    $imagesUploaded[] = ['photo' => $path, 'is_thumb' => false];
                 }
+
+                $explorer->photos()->createMany($imagesUploaded);
             }
 
             return response()->json([
