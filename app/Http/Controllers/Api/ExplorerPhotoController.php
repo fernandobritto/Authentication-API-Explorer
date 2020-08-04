@@ -17,6 +17,19 @@ class ExplorerPhotoController extends Controller
 
     public function setThumb($photoId)
     {
+        try{
+            $photo = $this->explorerPhoto->where('is_thumb', true)->first();
+            $photo = $this->explorerPhoto->find($photoId);
+            $photo->update(['is_thumb' => true]);
+        }catch (\Exception $e){
+
+        }
+
+    }
+
+
+    public function remove($photoId)
+    {
 
     }
 }
