@@ -2,10 +2,14 @@
 
 declare(strict_types=1);
 
-use example\Mutation\ExampleMutation;
-use example\Query\ExampleQuery;
-use example\Type\ExampleRelationType;
-use example\Type\ExampleType;
+use App\GraphQL\Type\PostType;
+use App\GraphQL\Type\UserType;
+use App\GraphQL\Query\PostQuery;
+use App\GraphQL\Query\UserQuery;
+use App\GraphQL\Mutation\PostMutation;
+use App\GraphQL\Mutation\UserMutation;
+use App\GraphQL\Query\UserPaginateQuery;
+
 
 return [
 
@@ -60,70 +64,27 @@ return [
     // parameter.
     'default_schema' => 'default',
 
-    // The schemas for query and/or mutation. It expects an array of schemas to provide
-    // both the 'query' fields and the 'mutation' fields.
-    //
-    // You can also provide a middleware that will only apply to the given schema
-    //
-    // Example:
-    //
-    //  'schema' => 'default',
-    //
-    //  'schemas' => [
-    //      'default' => [
-    //          'query' => [
-    //              'users' => 'App\GraphQL\Query\UsersQuery'
-    //          ],
-    //          'mutation' => [
-    //
-    //          ]
-    //      ],
-    //      'user' => [
-    //          'query' => [
-    //              'profile' => 'App\GraphQL\Query\ProfileQuery'
-    //          ],
-    //          'mutation' => [
-    //
-    //          ],
-    //          'middleware' => ['auth'],
-    //      ],
-    //      'user/me' => [
-    //          'query' => [
-    //              'profile' => 'App\GraphQL\Query\MyProfileQuery'
-    //          ],
-    //          'mutation' => [
-    //
-    //          ],
-    //          'middleware' => ['auth'],
-    //      ],
-    //  ]
-    //
+
     'schemas' => [
         'default' => [
             'query' => [
-                // 'example_query' => ExampleQuery::class,
+                'user_query' => UserQuery::class,
+                'user_paginate' => UserPaginateQuery::class,
+                'post_query' => PostQuery::class
             ],
             'mutation' => [
-                // 'example_mutation'  => ExampleMutation::class,
+               'post_mutation' => PostMutation::class,
+               'user_mutation' => UserMutation::class
             ],
             'middleware' => [],
             'method' => ['get', 'post'],
         ],
     ],
 
-    // The types available in the application. You can then access it from the
-    // facade like this: GraphQL::type('user')
-    //
-    // Example:
-    //
-    // 'types' => [
-    //     'user' => 'App\GraphQL\Type\UserType'
-    // ]
-    //
+
     'types' => [
-        // 'example'           => ExampleType::class,
-        // 'relation_example'  => ExampleRelationType::class,
-        // \Rebing\GraphQL\Support\UploadType::class,
+        'user_type' => UserType::class,
+        'post_type' => PostType::class
     ],
 
     // The types will be loaded on demand. Default is to load all types on each request
