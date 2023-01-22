@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "description": "",
   "author": "Fernando Britto",
-  "private": true,
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
